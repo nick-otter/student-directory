@@ -34,22 +34,25 @@ def print_footer(names)
 end
 
 def input_students
+  students = []
+
   puts "Please enter the name of the student".center(60)
   puts "(to finish at any point, just hit return twice)".center(60)
-  # create an empty array
-  students = []
-  # get the first name
   name = gets.chomp
+  puts "Enter their cohort (please spell perfectly!)".center(60)
+  cohort = gets.gsub(/\n/,"").# https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
   puts "Please enter the birthplace of the student".center(60)
-  # get the birthplace
   birthplace = gets.chomp
   puts "Please enter the height of the the student".center(60)
-  # get the height
   height = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
+    # create separate methods for response conditions? or put all on gets line?
+    if cohort == ""
+      cohort = "november"
+    end
     # add the student hash to the array
-    students << {name: name, cohort: :november, birthplace: birthplace, height: height}
+    students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
     #puts "Now we have #{students.count} students"
     # get another name from the user
     name = gets.chomp
