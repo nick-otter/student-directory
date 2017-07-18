@@ -47,13 +47,13 @@ def input_students
 
   puts "Please enter the name of the student".center(60)
   puts "(to finish at any point, just hit return twice)".center(60)
-  name = gets.chomp
+    name = gets.gsub(/\n/,"")
   puts "Enter their cohort (please spell perfectly!)".center(60)
-  cohort = gets.gsub(/\n/,"").# https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
+    cohort = gets.gsub(/\n/,"").# https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
   puts "Please enter the birthplace of the student".center(60)
-  birthplace = gets.chomp
+    birthplace = gets.gsub(/\n/,"")
   puts "Please enter the height of the the student".center(60)
-  height = gets.chomp
+    height = gets.gsub(/\n/,"")
   # while the name is not empty, repeat this code
   while !name.empty? do
     # create separate methods for response conditions? or put all on gets line?
