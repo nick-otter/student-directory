@@ -25,10 +25,7 @@ def print(students)
   end
 
   students.each_with_index do |student, index|
-      cohort_of_your_choice = "november".to_sym  # or can just be :november
-      if student[:cohort] == cohort_of_your_choice
-        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(60) # alternative solution: students.map do |i| i[:cohort]
-    end
+        puts "#{student[:name]} (#{student[:cohort]} cohort) #{student[:birthplace]}, #{student[:height]}".center(60) # alternative solution: students.map do |i| i[:cohort]
   end
 end
 
@@ -73,6 +70,31 @@ def input_students
   students
 end
 
+def interactive_menu
+  students = []
+  loop do
+    # Menu
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I don't know what you mean, try again"
+    end
+  end
+end
+
+interactive_menu
 
 # Past methods
 
