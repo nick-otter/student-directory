@@ -36,15 +36,13 @@ def print_footer(names)
   if names.count <= 0
     return
   end
-  
+
   if names.count == 1
       puts "Overall, we have #{names.count} great student".center(60)
   else
       puts "Overall, we have #{names.count} great students".center(60)
   end
 end
-
-
 
 
 def input_students
@@ -65,22 +63,21 @@ def input_students
       cohort = "november"
     end
     students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
-    # don't forget! puts "Now we have #{students.count} students"
+    if students.count == 1
+        "Now we have #{students.count} student"
+    else
+        "Now we have #{students.count} students"
+    end
     name = gets.chomp
   end
   students
 end
 
-students = input_students
-input_students
-print_header
-print(students)
-print_footer(students)
 
 # Past methods
 
-#   # count = 1
-  # while count <= 11
-    # students.each_with_index do |student, index|
-    # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
-    # count = count + 1
+# count = 1
+# while count <= 11
+# students.each_with_index do |student, index|
+# puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
+# count = count + 1
