@@ -57,7 +57,7 @@ def input_students
 end
 
 def print_menu
-  menu_choices = ["1. Input the students", "2. Show the students", "3. Save the list to students.csv", "4. Load the list from students.csv", "9. Exit"]
+  menu_choices = ["1. Input the students", "2. Show the students", "3. Save your list", "4. Load a list", "9. Exit"]
   puts menu_choices
 end
 
@@ -72,10 +72,10 @@ def process(selection)
     show_students
   when "3"
     puts "#{response[0] + response[3]}"
-    save_students
+    save_students_to_file
   when "4"
     puts "#{response[0] + response[4]}"
-    load_students
+    load_students_from_file
   when "9" then exit
     else
     puts "I don't know what you mean, try again"
@@ -91,7 +91,8 @@ end
 
 def save_students_to_file
   # open the file for writing
-  file = File.open("students.csv", "w")
+  puts "You are about to save your list, please give it a name (no need to add .csv etc.):"
+  file = File.open("#{gets.chomp}", "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -100,7 +101,9 @@ def save_students_to_file
   file.close
 end
 
-def load_students_from_file(filename = "students.csv")
+def load_students_from_file
+  puts "Name the file you want to add (please add its extension!):"
+  filename = gets.chomp
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
@@ -123,7 +126,6 @@ def try_load_students_from_file
 
   return if filename.nil? # get out of the method if it isn't given << important!
   if File.exists?(filename)
-      load_students_from_file(filename)
       puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
