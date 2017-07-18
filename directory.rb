@@ -105,8 +105,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-  add_students(name, cohort)
+    name, cohort = line.chomp.split(',')
+    add_students(name, cohort)
   # puts @students # to test
   end
   file.close
@@ -117,10 +117,15 @@ def add_students(name, cohort)
 end
 
 def try_load_students
-  filename = ARGV.first
+  if !!ARGV
+    filename = "students.csv"
+  else
+    filename = ARGV.first
+  end
+
   return if filename.nil? # get out of the method if it isn't given << important!
   if File.exists?(filename)
-    load_students(filename)
+      load_students(filename)
       puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
