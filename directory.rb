@@ -20,11 +20,16 @@ def print_header
 end
 
 def print(students)
-    count = 1
-    while count <= 11
-      students.each_with_index do |student, index|
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
-      count = count + 1
+    # count = 1
+    # while count <= 11
+      # students.each_with_index do |student, index|
+      # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
+      # count = count + 1
+
+    students.each_with_index do |student, index|
+      cohort_of_your_choice = "november".to_sym  # or can just be :november
+      if student[:cohort] == cohort_of_your_choice
+        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(60)
     end
   end
 end
@@ -61,10 +66,7 @@ def input_students
   students
 end
 
-
-
-#nothing happens until we call the methods
-students = input_students
+#students = input_students
 print_header
 print(students)
 print_footer(students)
