@@ -11,7 +11,7 @@ def print_students_list
     return
   end
   @students.each_with_index do |student, index|
-    puts "#{student[:name]} (#{student[:cohort]} cohort) #{student[:birthplace]}, #{student[:height]}".center(60)
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(60)
   end
 end
 
@@ -35,16 +35,13 @@ def input_students
     name = STDIN.gets.gsub(/\n/,"")
   puts "Enter their cohort (please spell perfectly!)".center(60)
     cohort = STDIN.gets.gsub(/\n/,"") # https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
-  puts "Please enter the birthplace of the student".center(60)
-    birthplace = STDIN.gets.gsub(/\n/,"")
-  puts "Please enter the height of the the student".center(60)
-    height = STDIN.gets.gsub(/\n/,"")
+
   # while the name is not empty, repeat this code
   while !name.empty? do
     if cohort == ""
       cohort = "november"
     end
-    @students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
+    add_students(name, cohort)
     if @students.count == 1
         "Now we have #{@students.count} student".center(60)
     else
@@ -109,10 +106,14 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
-  puts @students # to test
+  add_students(name, cohort)
+  # puts @students # to test
   end
   file.close
+end
+
+def add_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def try_load_students
