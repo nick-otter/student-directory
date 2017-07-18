@@ -15,8 +15,8 @@ students = [
 ]
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(60)
+  puts "-------------".center(60)
 end
 
 def print(students)
@@ -30,20 +30,20 @@ def print(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(60)
 end
 
 def input_students
-  puts "Please enter the name of the student"
-  puts "To finish at any point, just hit return twice"
+  puts "Please enter the name of the student".center(60)
+  puts "(to finish at any point, just hit return twice)".center(60)
   # create an empty array
   students = []
   # get the first name
   name = gets.chomp
-  puts "Please enter the birthplace of the student"
+  puts "Please enter the birthplace of the student".center(60)
   # get the birthplace
   birthplace = gets.chomp
-  puts "Please enter the height of the the student"
+  puts "Please enter the height of the the student".center(60)
   # get the height
   height = gets.chomp
   # while the name is not empty, repeat this code
