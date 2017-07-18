@@ -20,27 +20,32 @@ def print_header
 end
 
 def print(students)
-    # count = 1
-    # while count <= 11
-      # students.each_with_index do |student, index|
-      # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
-      # count = count + 1
+  if students.count <= 0
+    return
+  end
 
-    students.each_with_index do |student, index|
+  students.each_with_index do |student, index|
       cohort_of_your_choice = "november".to_sym  # or can just be :november
       if student[:cohort] == cohort_of_your_choice
-        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(60)
+        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(60) # alternative solution: students.map do |i| i[:cohort]
     end
   end
 end
 
 def print_footer(names)
+  if names.count <= 0
+    return
+  end
+  
   if names.count == 1
-    puts "Overall, we have #{names.count} great student".center(60)
+      puts "Overall, we have #{names.count} great student".center(60)
   else
-    puts "Overall, we have #{names.count} great students".center(60)
+      puts "Overall, we have #{names.count} great students".center(60)
   end
 end
+
+
+
 
 def input_students
   students = []
@@ -49,28 +54,33 @@ def input_students
   puts "(to finish at any point, just hit return twice)".center(60)
     name = gets.gsub(/\n/,"")
   puts "Enter their cohort (please spell perfectly!)".center(60)
-    cohort = gets.gsub(/\n/,"").# https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
+    cohort = gets.gsub(/\n/,"") # https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
   puts "Please enter the birthplace of the student".center(60)
     birthplace = gets.gsub(/\n/,"")
   puts "Please enter the height of the the student".center(60)
     height = gets.gsub(/\n/,"")
   # while the name is not empty, repeat this code
   while !name.empty? do
-    # create separate methods for response conditions? or put all on gets line?
     if cohort == ""
       cohort = "november"
     end
-    # add the student hash to the array
     students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
-    #puts "Now we have #{students.count} students"
-    # get another name from the user
+    # don't forget! puts "Now we have #{students.count} students"
     name = gets.chomp
   end
-  # return the array of students
   students
 end
 
-#students = input_students
+students = input_students
+input_students
 print_header
 print(students)
 print_footer(students)
+
+# Past methods
+
+#   # count = 1
+  # while count <= 11
+    # students.each_with_index do |student, index|
+    # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort) #{student[:height]}, #{student[:birthplace]}"
+    # count = count + 1
