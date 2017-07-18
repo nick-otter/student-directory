@@ -32,13 +32,13 @@ def input_students
 
   puts "Please enter the name of the student".center(60)
   puts "(to finish at any point, just hit return twice)".center(60)
-    name = gets.gsub(/\n/,"")
+    name = STDIN.gets.gsub(/\n/,"")
   puts "Enter their cohort (please spell perfectly!)".center(60)
-    cohort = gets.gsub(/\n/,"") # https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
+    cohort = STDIN.gets.gsub(/\n/,"") # https://github.com/makersacademy/problem-solving/issues/102#issuecomment-315815931
   puts "Please enter the birthplace of the student".center(60)
-    birthplace = gets.gsub(/\n/,"")
+    birthplace = STDIN.gets.gsub(/\n/,"")
   puts "Please enter the height of the the student".center(60)
-    height = gets.gsub(/\n/,"")
+    height = STDIN.gets.gsub(/\n/,"")
   # while the name is not empty, repeat this code
   while !name.empty? do
     if cohort == ""
@@ -50,7 +50,7 @@ def input_students
     else
         "Now we have #{@students.count} students".center(60)
     end
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   @students
 end
@@ -105,8 +105,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -115,7 +115,19 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil? # get out of the method if it isn't given << important!
+  if File.exists?(filename)
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
 
+try_load_students
 interactive_menu
 
 # Past methods
