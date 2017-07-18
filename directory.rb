@@ -1,49 +1,34 @@
-student_count = 11
-# let's put all students into an array
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
-]
+
+@students = [] # an empty array accessible to all methods
 
 def print_header
   puts "The students of Villains Academy".center(60)
   puts "-------------".center(60)
 end
 
-def print(students)
-  if students.count <= 0
+def print_students_list
+  if @students.count <= 0
     return
   end
-
-  students.each_with_index do |student, index|
-        puts "#{student[:name]} (#{student[:cohort]} cohort) #{student[:birthplace]}, #{student[:height]}".center(60) # alternative solution: students.map do |i| i[:cohort]
+  @students.each_with_index do |student, index|
+    puts "#{student[:name]} (#{student[:cohort]} cohort) #{student[:birthplace]}, #{student[:height]}".center(60)
   end
 end
 
-def print_footer(names)
-  if names.count <= 0
+def print_footer
+  if @students.count <= 0
     return
   end
 
-  if names.count == 1
-      puts "Overall, we have #{names.count} great student".center(60)
+  if @students.count == 1
+      puts "Overall, we have #{@students.count} great student".center(60)
   else
-      puts "Overall, we have #{names.count} great students".center(60)
+      puts "Overall, we have #{@students.count} great students".center(60)
   end
 end
 
 
 def input_students
-  students = []
 
   puts "Please enter the name of the student".center(60)
   puts "(to finish at any point, just hit return twice)".center(60)
@@ -59,38 +44,46 @@ def input_students
     if cohort == ""
       cohort = "november"
     end
-    students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
-    if students.count == 1
-        "Now we have #{students.count} student"
+    @students << {name: name, cohort: cohort.to_sym, birthplace: birthplace, height: height}
+    if @students.count == 1
+        "Now we have #{@students.count} student".center(60)
     else
-        "Now we have #{students.count} students"
+        "Now we have #{@students.count} students".center(60)
     end
     name = gets.chomp
   end
-  students
+  @students
 end
 
-def interactive_menu
-  students = []
-  loop do
-    # Menu
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
 
-    selection = gets.chomp
-    case selection
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+  case selection
     when "1"
-      students = input_students
+      input_students
     when "2"
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
       exit
     else
       puts "I don't know what you mean, try again"
-    end
+  end
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
   end
 end
 
