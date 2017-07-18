@@ -1,4 +1,6 @@
 
+require 'csv'
+
 @students = [] # an empty array accessible to all methods
 
 def print_header
@@ -92,7 +94,7 @@ end
 def save_students_to_file
   # open the file for writing
   puts "You are about to save your list, please give it a name (please add .csv etc.):"
-  file = File.open("#{gets.chomp}", "w") do |file|
+  file = CSV.open("#{gets.chomp}", "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -105,7 +107,7 @@ end
 def load_students_from_file
   puts "Name the file you want to add (please add its extension!):"
   filename = gets.chomp
-  file = File.open(filename, "r") do |file|
+  file = CSV.foreach(filename, "r") do |file|
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     add_students_to_arr(name, cohort)
