@@ -62,11 +62,20 @@ def print_menu
 end
 
 def process(selection)
+  response = ["You picked ","1","2","3","4"]
   case selection
-  when "1" then input_students
-  when "2" then show_students
-  when "3" then save_students
-  when "4" then load_students
+  when "1"
+    puts "#{response[0] + response[1]}"
+    input_students
+  when "2"
+    puts "#{response[0] + response[2]}"
+    show_students
+  when "3"
+    puts "#{response[0] + response[3]}"
+    save_students
+  when "4"
+    puts "#{response[0] + response[4]}"
+    load_students
   when "9" then exit
     else
     puts "I don't know what you mean, try again"
