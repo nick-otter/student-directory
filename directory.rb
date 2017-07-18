@@ -27,9 +27,13 @@ def print_footer
   end
 end
 
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
 
 def input_students
-
   puts "Please enter the name of the student".center(60)
   puts "(to finish at any point, just hit return twice)".center(60)
     name = STDIN.gets.gsub(/\n/,"")
@@ -41,7 +45,7 @@ def input_students
     if cohort == ""
       cohort = "november"
     end
-    add_students(name, cohort)
+    add_students_to_arr(name, cohort)
     if @students.count == 1
         "Now we have #{@students.count} student".center(60)
     else
@@ -53,33 +57,19 @@ def input_students
 end
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
-end
-
-def show_students
-  print_header
-  print_students_list
-  print_footer
+  menu_choices = ["1. Input the students", "2. Show the students", "3. Save the list to students.csv", "4. Load the list from students.csv", "9. Exit"]
+  puts menu_choices
 end
 
 def process(selection)
   case selection
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "3"
-      save_students
-    when "4"
-      load_students
-    when "9"
-      exit
+  when "1" then input_students
+  when "2" then show_students
+  when "3" then save_students
+  when "4" then load_students
+  when "9" then exit
     else
-      puts "I don't know what you mean, try again"
+    puts "I don't know what you mean, try again"
   end
 end
 
@@ -90,10 +80,9 @@ def interactive_menu
   end
 end
 
-def save_students
+def save_students_to_file
   # open the file for writing
   file = File.open("students.csv", "w")
-  # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -102,21 +91,21 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students_from_file(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    add_students(name, cohort)
+    add_students_to_arr(name, cohort)
   # puts @students # to test
   end
   file.close
 end
 
-def add_students(name, cohort)
+def add_students_to_arr(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-def try_load_students
+def try_load_students_from_file
   if !!ARGV
     filename = "students.csv"
   else
@@ -125,7 +114,7 @@ def try_load_students
 
   return if filename.nil? # get out of the method if it isn't given << important!
   if File.exists?(filename)
-      load_students(filename)
+      load_students_from_file(filename)
       puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
@@ -133,7 +122,7 @@ def try_load_students
   end
 end
 
-try_load_students
+try_load_students_from_file
 interactive_menu
 
 # Past methods
