@@ -1,6 +1,8 @@
 
 require 'csv'
 
+CSV.readlines(__FILE__).each { |i| puts i }
+
 @students = [] # an empty array accessible to all methods
 
 def print_header
